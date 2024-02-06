@@ -48,6 +48,7 @@ GRANT ALL ON *.*
 TO 'brt_user'@'localhost';
 
 SELECT 'COMPLETED' AS 'INSTALLATION DONE';
+
 FLUSH PRIVILEGES;
 
 SELECT user, host, show_db_priv, account_locked

@@ -1,0 +1,187 @@
+SELECT 'DROPPING USER admin_02' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_02'@'%';
+
+SELECT 'ADDING USER admin_02' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_02'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_02'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+SELECT 'DROPPING USER admin_03' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_03'@'%';
+
+SELECT 'ADDING USER admin_03' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_03'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_03'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+
+SELECT 'DROPPING USER admin_04' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_04'@'%';
+
+SELECT 'ADDING USER admin_04' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_04'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_04'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+
+
+SELECT 'DROPPING USER admin_05' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_05'@'%';
+
+SELECT 'ADDING USER admin_05' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_05'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_05'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+
+
+SELECT 'DROPPING USER admin_06' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_06'@'%';
+
+SELECT 'ADDING USER admin_06' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_06'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_06'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+
+
+SELECT 'ADDING ROLES' AS 'INSTALLATION PROGRESSING';
+
+-- CREATE ROLE
+
+CREATE ROLE
+IF NOT EXISTS
+          'read_only_classicmodels_db', 'admin_user',
+          'read_only_employees_db', 'app_user';
+
+SELECT user, show_db_priv, account_locked
+FROM mysql.user;
+
+
+-- GRANT PRIVILIGES
+
+GRANT SELECT
+ON classicmodels.*
+TO 'read_only_classicmodels_db'@'%';
+
+GRANT CREATE, DROP
+ON employees.*
+TO 'admin_user'@'%';
+
+GRANT CREATE, DROP
+ON classicmodels.*
+TO 'admin_user'@'%';
+
+
+GRANT SHOW DATABASES
+ON *.*
+TO 'admin_user'@'%';
+
+
+GRANT INSERT, UPDATE
+ON employees.employees
+TO 'app_user'@'%';
+
+
+GRANT SELECT
+ON employees.*
+TO 'read_only_employees_db'@'%';
+
+
+SELECT user, show_db_priv, account_locked
+FROM mysql.user;
+
+-- CREATE ROLES
+SELECT 'CREATING ROLES' AS 'INSTALLATION PROGRESSING';
+GRANT 'admin_007' TO 'admin_06';
+
+GRANT 'read_only_classicmodels_db' to 'admin_001', 'admin_03';
+
+GRANT 'read_only_employees_db' to 'admin_02', 'admin_04';
+
+GRANT 'app_user' TO 'admin_06';
+
+GRANT 'admin_user' TO 'admin_05';
+
+FLUSH PRIVILEGES;
+
+-- CREATE ROLES
+
+SELECT 'ENABLING ROLES' AS 'INSTALLATION PROGRESSING';
+
+SET DEFAULT
+ROLE ALL TO 'admin_02'@'%', 'admin_03'@'%',
+            'admin_04'@'%', 'admin_05'@'%',
+            'admin_06'@'%', 'admin_007'@'%';
+-- CREATE ROLES
+SELECT 'SCRIPT DONE' AS 'INSTALLATION PROGRESSING';
