@@ -1,3 +1,29 @@
+SELECT 'DROPPING USER admin_01' AS 'INSTALLATION STARTING';
+
+DROP USER
+IF EXISTS 'admin_01'@'%';
+
+SELECT 'ADDING USER admin_01' AS 'INSTALLATION PROGRESSING';
+
+CREATE USER
+IF NOT EXISTS 'admin_01'@'%'
+IDENTIFIED BY 'guttmanGrizzlies_2024'
+FAILED_LOGIN_ATTEMPTS 22
+PASSWORD_LOCK_TIME UNBOUNDED
+PASSWORD EXPIRE INTERVAL 90 DAY
+PASSWORD HISTORY 5
+PASSWORD REUSE INTERVAL 365 DAY;
+
+REVOKE ALL, GRANT OPTION FROM 'admin_01'@'%';
+
+SELECT user, Show_db_priv, account_locked
+FROM mysql.user;
+
+
+
+
+
+
 SELECT 'DROPPING USER admin_02' AS 'INSTALLATION STARTING';
 
 DROP USER
@@ -128,7 +154,7 @@ SELECT user, show_db_priv, account_locked
 FROM mysql.user;
 
 
--- GRANT PRIVILIGES
+-- GRANT PRIVILEGES
 
 GRANT SELECT
 ON classicmodels.*
@@ -165,7 +191,7 @@ FROM mysql.user;
 SELECT 'CREATING ROLES' AS 'INSTALLATION PROGRESSING';
 GRANT 'admin_007' TO 'admin_06';
 
-GRANT 'read_only_classicmodels_db' to 'admin_001', 'admin_03';
+GRANT 'read_only_classicmodels_db' to 'admin_01', 'admin_03';
 
 GRANT 'read_only_employees_db' to 'admin_02', 'admin_04';
 
@@ -180,8 +206,8 @@ FLUSH PRIVILEGES;
 SELECT 'ENABLING ROLES' AS 'INSTALLATION PROGRESSING';
 
 SET DEFAULT
-ROLE ALL TO 'admin_02'@'%', 'admin_03'@'%',
-            'admin_04'@'%', 'admin_05'@'%',
-            'admin_06'@'%', 'admin_007'@'%';
+ROLE ALL TO 'admin_01'@'%', 'admin_02'@'%',
+            'admin_03'@'%', 'admin_04'@'%',
+            'admin_05'@'%', 'admin_06'@'%';
 -- CREATE ROLES
 SELECT 'SCRIPT DONE' AS 'INSTALLATION PROGRESSING';

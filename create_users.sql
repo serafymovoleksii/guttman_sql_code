@@ -16,7 +16,7 @@ PASSWORD REUSE INTERVAL 365 DAY;
 
 REVOKE ALL, GRANT OPTION FROM 'rt_user'@'localhost';
 
-GRANT ALL ON *.*
+GRANT ALL ON *.* with grant OPTION
 TO 'rt_user'@'localhost';
 
 SELECT user, Show_db_priv, account_locked
