@@ -119,9 +119,6 @@ SHOW CREATE TABLE category \G
 
 
 
-
-
-
 DROP TABLE IF EXISTS soldvia;
 
 

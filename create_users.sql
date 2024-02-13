@@ -16,13 +16,13 @@ PASSWORD REUSE INTERVAL 365 DAY;
 
 REVOKE ALL, GRANT OPTION FROM 'rt_user'@'localhost';
 
-GRANT ALL ON *.* with grant OPTION
+GRANT ALL ON *.*
 TO 'rt_user'@'localhost';
 
 SELECT user, Show_db_priv, account_locked
 FROM mysql.user;
 
-SELECT 'Completed adding rt_user' AS 'INSTALLATION DONE';
+
 
 
 
